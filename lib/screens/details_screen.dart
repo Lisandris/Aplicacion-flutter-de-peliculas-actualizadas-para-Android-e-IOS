@@ -1,5 +1,4 @@
-import 'dart:js';
-
+import 'package:app_peliculas/widgets/casting_cards.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -17,7 +16,12 @@ class DetailsScreen extends StatelessWidget {
           _CustomAppBar(),
           SliverList(
             delegate: SliverChildListDelegate([
-              _PosterAndTitle()
+              _PosterAndTitle(),
+              _Overview(),
+              _Overview(),
+              _Overview(),
+              CastingCards()
+              
               
             ])
           )
@@ -44,6 +48,7 @@ class   _CustomAppBar extends StatelessWidget {
         titlePadding: const EdgeInsets.all(0) ,
         title: Container( 
             width: double.infinity,
+            padding: EdgeInsets.only( bottom: 10),
             alignment: Alignment.bottomCenter,
             color: Colors.black12,
             child: const Text(
@@ -64,7 +69,8 @@ class   _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
-  
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -102,6 +108,22 @@ class _PosterAndTitle extends StatelessWidget {
             ]
           )
         ]
+      ),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric( horizontal: 30, vertical: 10),
+      child: Text(
+       'Nostrud nisi magna enim anim.',
+       textAlign: TextAlign.justify,
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }
