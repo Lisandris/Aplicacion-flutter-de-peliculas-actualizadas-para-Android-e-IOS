@@ -1,7 +1,18 @@
+import 'package:app_peliculas/models/movie.dart';
 import 'package:flutter/material.dart';
 
 
 class MovieSlider extends StatelessWidget {
+
+  final List<Movie> movies;
+  final String? title;
+
+  const MovieSlider({
+    Key? key, 
+    required this.movies, 
+    this.title
+  }) : super(key: key);
+  
   
   @override
   Widget build(BuildContext context) {
@@ -12,9 +23,11 @@ class MovieSlider extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          const Padding(
-            padding: EdgeInsets.symmetric( horizontal: 20 ),
-            child: Text( 'Populares', style: TextStyle( fontSize: 20, fontWeight: FontWeight.bold ) ,) ,
+            if ( this.title != null )
+            
+           Padding(
+            padding: const EdgeInsets.symmetric( horizontal: 20 ),
+            child: Text( this.title!, style: const TextStyle( fontSize: 20, fontWeight: FontWeight.bold ) ,) ,
           ),
 
           const SizedBox ( height: 5),
@@ -22,8 +35,8 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 20,
-              itemBuilder: ( _, int index) => _MoviePoster()
+              itemCount: movies.length,
+              itemBuilder: ( _, int index) =>  _MoviePoster( movies[index]),
             ),
           ),
         ],
@@ -33,13 +46,17 @@ class MovieSlider extends StatelessWidget {
 }
 
  class _MoviePoster extends StatelessWidget {
+
+  final Movie movie;
+
+  const _MoviePoster(this.movie);
  
    @override
    Widget build(BuildContext context) {
      return Container(
         width: 130,
         height: 190,
-        margin: EdgeInsets.symmetric( horizontal: 10),
+        margin: const EdgeInsets.symmetric( horizontal: 10),
         child: Column(
           children: [
 
@@ -47,9 +64,9 @@ class MovieSlider extends StatelessWidget {
               onTap: () => Navigator.pushNamed(context, 'details', arguments: 'movie-instance'),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: const FadeInImage(
-                  placeholder: AssetImage('assets/no-image.jpg'), 
-                  image: NetworkImage('https://mitiendademascotas.co/wp-content/uploads/2021/09/gatos-300x400.jpg'),
+                child: FadeInImage(
+                  placeholder: const AssetImage('assets/no-image.jpg'), 
+                  image: NetworkImage( movie.fullPosterImg ),
                   width: 130,
                   height: 190,
                   fit: BoxFit.cover,
@@ -59,12 +76,12 @@ class MovieSlider extends StatelessWidget {
 
             const SizedBox( height: 5 ),
 
-            const Text(
-              'Starwars: El retorno del nuevo Jedi Silvestre',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-            )
+             Text(
+               movie.title,
+               maxLines: 2,
+               overflow: TextOverflow.ellipsis,
+               textAlign: TextAlign.center,
+              )
           ],
         ),
       );

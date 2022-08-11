@@ -1,20 +1,16 @@
-
-import 'package:card_swiper/card_swiper.dart';
-import 'package:flutter/material.dart';
-
 import '../models/movie.dart';
+import 'package:flutter/material.dart';
+import 'package:card_swiper/card_swiper.dart';
+
 
 class CardSwiper extends StatelessWidget {
   
   final List<Movie> movies;
 
-  const CardSwiper(
-    {Key? key,
+  const CardSwiper({
+    Key? key,
     required this.movies
     }) : super(key: key);
-
-
-
 
 
   @override
@@ -22,8 +18,18 @@ class CardSwiper extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
 
+    // codigo para mostrar imagen mientras carga la indicada
+    if( movies.length == 0) {
+      return SizedBox(
+        width: double.infinity,
+        height: size.height * 0.5,
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: size.height * 0.5,
       child: Swiper(
