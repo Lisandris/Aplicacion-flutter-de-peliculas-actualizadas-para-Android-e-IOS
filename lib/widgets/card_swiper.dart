@@ -19,7 +19,7 @@ class CardSwiper extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     // codigo para mostrar imagen mientras carga la indicada
-    if( movies.length == 0) {
+    if( movies.isEmpty) {
       return SizedBox(
         width: double.infinity,
         height: size.height * 0.5,

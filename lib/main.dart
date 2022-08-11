@@ -3,10 +3,12 @@ import 'package:app_peliculas/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(AppState());
+void main() => runApp(const AppState());
 
 
 class AppState extends StatelessWidget {
+  const AppState({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +16,14 @@ class AppState extends StatelessWidget {
       providers:[
         ChangeNotifierProvider(create: ( _ ) => MoviesProvider(), lazy: false),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   
   @override
   Widget build(BuildContext context) {
@@ -28,12 +32,12 @@ class MyApp extends StatelessWidget {
       title: 'Peliculas',
       initialRoute: 'home',
       routes: {
-        'home': ( _ ) => HomeScreen(),
+        'home': ( _ ) => const HomeScreen(),
         'details': ( _ ) => DetailsScreen(),
 
       },
       theme: ThemeData.light().copyWith(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: Colors.deepPurple
         )
       ),

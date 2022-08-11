@@ -81,7 +81,7 @@ class _MovieSliderState extends State<MovieSlider> {
 
   final Movie movie;
 
-  _MoviePoster(this.movie);
+  const _MoviePoster(this.movie);
  
    @override
    Widget build(BuildContext context) {
