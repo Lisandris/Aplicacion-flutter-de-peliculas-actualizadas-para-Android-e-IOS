@@ -12,6 +12,8 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = []; // [] es un arrai vacio [k, m, m, n, h, f]
 
+  Map<int, List<Cast>> moviesCast ={};
+
   int _popularPage = 0;
 
   MoviesProvider() {
@@ -21,6 +23,8 @@ class MoviesProvider extends ChangeNotifier {
     getPopularMovies();
   }
 
+  
+
   Future<String> _getJsonData( String endpoint, [int page = 1]) async{
     var url = Uri.https( _baseUrl, endpoint, {
       'api_key' : _apiKey,
@@ -28,8 +32,8 @@ class MoviesProvider extends ChangeNotifier {
       'page' : '$page'
 
     });
-  
-    final response =await http.get(url);
+    
+    final response = await http.get(url);
     return response.body;
 
   }
@@ -53,6 +57,21 @@ class MoviesProvider extends ChangeNotifier {
 
     popularMovies = [ ...popularMovies, ...popularResponse.results];
     notifyListeners();
+
+  }
+
+  Future<List<Cast>> getMoviesCast ( int movieId )  async {
+
+    // TODO: revisar el mapa
+
+    print('pidiendo inf al servidor -Cast');
+
+    final jsonData = await _getJsonData('/3/movies/$movieId/credits');
+    final creditsResponse = CreditsResponse.fromJson(jsonData);
+ 
+    // para almacenar en el mapa
+    moviesCast[movieId] = creditsResponse.cast;
+    return creditsResponse.cast;
 
   }
 
