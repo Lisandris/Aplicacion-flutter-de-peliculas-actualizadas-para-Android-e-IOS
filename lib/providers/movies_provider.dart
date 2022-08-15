@@ -57,22 +57,19 @@ class MoviesProvider extends ChangeNotifier {
 
     popularMovies = [ ...popularMovies, ...popularResponse.results];
     notifyListeners();
-
   }
 
   Future<List<Cast>> getMoviesCast ( int movieId )  async {
 
-    // TODO: revisar el mapa
+   if (moviesCast.containsKey(movieId) ) return moviesCast[movieId]!;
 
-    print('pidiendo inf al servidor -Cast');
-
-    final jsonData = await _getJsonData('/3/movies/$movieId/credits');
-    final creditsResponse = CreditsResponse.fromJson(jsonData);
+    final jsonData = await _getJsonData('/3/movie/$movieId/credits');
+    final creditsResponse = CreditsResponse.fromJson( jsonData );
  
     // para almacenar en el mapa
     moviesCast[movieId] = creditsResponse.cast;
-    return creditsResponse.cast;
 
+    return creditsResponse.cast;
   }
 
 }
