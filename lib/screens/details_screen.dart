@@ -3,12 +3,14 @@ import 'package:app_peliculas/widgets/casting_cards.dart';
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({Key? key}) : super(key: key);
+
  
   @override
   Widget build(BuildContext context) {
 
-    // TODO: cambiar luego por una isntancia de movie
-    final Movie movie = ModalRoute.of(context)?.settings.arguments as Movie;
+    // TODO: cambiar luego por una instancia de movie
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     return Scaffold(
       body: CustomScrollView(
@@ -84,21 +86,23 @@ class _PosterAndTitle extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      margin: EdgeInsets.only( top:20 ),
+      margin: const EdgeInsets.only( top:20 ),
       padding: EdgeInsets.symmetric( horizontal: 20),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: AssetImage('assets/no-image.jpg'),
-               image: NetworkImage( movie.fullPosterImg ),
-               height: 150,
-               
+          Hero(
+            tag: movie.heroId!,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/no-image.jpg'),
+                 image: NetworkImage( movie.fullPosterImg ),
+                 height: 150,
+              ),
             ),
           ),
 
-          SizedBox( width: 20),
+          const SizedBox( width: 20),
 
           ConstrainedBox(
             constraints: BoxConstraints( maxWidth: size.width - 190 ),

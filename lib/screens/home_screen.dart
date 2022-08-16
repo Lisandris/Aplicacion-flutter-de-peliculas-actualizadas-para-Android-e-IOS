@@ -1,4 +1,4 @@
-import 'package:app_peliculas/screens/search_delegate.dart';
+import 'package:app_peliculas/search/search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app_peliculas/widgets/widgets.dart';
